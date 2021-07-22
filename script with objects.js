@@ -11,13 +11,15 @@ function setInitalConditions() {
   numberCurrent = []
 }
 
+
+
 const numberButtons = document.getElementsByTagName('button').length
 
 for (let i = 0; i < numberButtons; i++) {
   if (!(isNaN(Number(document.getElementsByTagName('button')[i].textContent)))) {
     document.getElementsByTagName('button')[i].addEventListener('click', () =>{
       categoryCurrentInput = 'Number'
-      clickedIcon(document.getElementsByTagName('button')[i].id)
+      clickedIconObjects(document.getElementsByTagName('button')[i].id)
     })
   } else {
     document.getElementsByTagName('button')[i].addEventListener('click', () => {
@@ -53,11 +55,14 @@ for (let i = 0; i < numberButtons; i++) {
         default:
           break;
       }
-      clickedIcon(document.getElementsByTagName('button')[i].id)
+      clickedIconObjects(document.getElementsByTagName('button')[i].id)
     })
   }
 }
 
+function clickedIconObjects (elementID) {
+
+}
 
 
 function clickedIcon(elementID) {
