@@ -7,25 +7,31 @@
   <title>Super Powered Calculator (From Space!)</title>
 </head>
 <body>
-  <button id="0">0</button>
-  <button id="1">1</button>
-  <button id="2">2</button>
-  <button id="3">3</button>
-  <button id="4">4</button>
-  <button id="5">5</button>
-  <button id="6">6</button>
-  <button id="7">7</button>
-  <button id="8">8</button>
-  <button id="9">9</button>
-  <button id="+">+</button>
-  <button id="-">-</button>
-  <button id="*">*</button>
-  <button id="/">/</button>
-  <button id=".">.</button>
-  <button id="submit" type="submit">Submit</button>
-  <button id="clear">Clear</button>
+  <button id="0" class="Number" value=0>0</button>
+  <button id="1" class="Number" value=1>1</button>
+  <button id="2" class="Number" value=2>2</button>
+  <button id="3" class="Number" value=3>3</button>
+  <button id="4" class="Number" value=4>4</button>
+  <button id="5" class="Number" value=5>5</button>
+  <button id="6" class="Number" value=6>6</button>
+  <button id="7" class="Number" value=7>7</button>
+  <button id="8" class="Number" value=8>8</button>
+  <button id="9" class="Number" value=9>9</button>
+  <button id="+" class="Operator">+</button>
+  <button id="-" class="Operator">-</button>
+  <button id="*" class="Operator">*</button>
+  <button id="/" class="Operator">/</button>
+  <button id="." class="Number" value=".">.</button>
+  <button id="Submit" class="Function">Submit</button>
+  <button id="ClearCurrent" class="Function">Clear Current</button>
+  <button id="ClearAll" class="Function">Clear All</button>
+  <button id="M+" class="Function">M+</button>
+  <button id="M-" class="Function">M-</button>
+  <button id="MR" class="Function">MR</button>
   <br>
-  <div id="total"></div>
+  <div id="Total"></div>
+  <br>
+  <div id="Memory"></div>
 </body>
 <script src="script with objects.js"></script>
 </html>
