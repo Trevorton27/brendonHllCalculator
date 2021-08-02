@@ -11,7 +11,7 @@ A fully functional calculator with memory feature.
 
 - The "Memory" feature is activated by pressing "M+", "M-" or "MR". "M+" will perform the displayed calculation if possible before storing the value. The number can be recalled by pressing "MR" either before an Operator (+, -, x, /) or after. Pressing "M+" while a value is displayed on screen will replace the stored value.
 
-- The "(+/-)" toggles the sign of the most recent operand.
+- The "(+/-)" toggles the sign of the most recent operand and can be pressed at any time with the same effect.
 
 - To proactively prevent a common error, the user is restricted from inputting more than one decimal per number.
 
