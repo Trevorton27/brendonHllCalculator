@@ -32,7 +32,7 @@ function Main(event) {
 renderDisplay()
 
 function performOperation (element) {
-  if (Calculator.numberFirst == null && element.className == "Number") {
+  if ((Calculator.numberFirst == null || Calculator.operatorFirst == "Submit") && element.className == "Number") {
     Calculator.numberFirst = element.value
   } else if (element.className == "Number" && typeof Calculator.numberFirst == "string") {
     if (!((Calculator.numberFirst.split(".").length >= 2) == true && element.id == ".")) {
@@ -52,6 +52,7 @@ function performOperation (element) {
   } else if (element.className == "Function") {
     if (element.id == "Submit") {
       performSubmit();
+      Calculator.operatorFirst = "Submit";
     } else if (element.id == "ClearCurrent") {
       performClear(false);
     } else if (element.id == "ClearAll") {
@@ -68,7 +69,7 @@ function performOperation (element) {
       Calculator.numberFirst = (Number(Calculator.numberFirst) * -1).toString()
     } else if (element.id == "MR"){
       Calculator.numberFirst == null ? Calculator.numberFirst = Calculator.numberMemory : Calculator.numberSecond = Calculator.numberMemory
-      if (Calculator.operatorFirst == null && Calculator.numberFirst != null && Calculator.numberMemory != null) {
+      if ((Calculator.operatorFirst == null || Calculator.operatorFirst == "Submit") && Calculator.numberFirst != null && Calculator.numberMemory != null) {
         performClear(false);
         Calculator.numberFirst = Calculator.numberMemory
         document.getElementById("Total").textContent = Calculator.numberMemory
