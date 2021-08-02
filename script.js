@@ -34,7 +34,7 @@ renderDisplay()
 function performOperation (element) {
   if (Calculator.numberFirst == null && element.className == "Number") {
     Calculator.numberFirst = element.value
-  } else if (element.className == "Number") {
+  } else if (element.className == "Number" && typeof Calculator.numberFirst == "string") {
     if (!((Calculator.numberFirst.split(".").length >= 2) == true && element.id == ".")) {
       Calculator.numberFirst += element.value
     } 
