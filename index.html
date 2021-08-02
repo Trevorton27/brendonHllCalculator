@@ -1,37 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="basic.css">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Super Powered Calculator (From Space!)</title>
 </head>
 <body>
-  <button id="0" class="Number" value=0>0</button>
-  <button id="1" class="Number" value=1>1</button>
-  <button id="2" class="Number" value=2>2</button>
-  <button id="3" class="Number" value=3>3</button>
-  <button id="4" class="Number" value=4>4</button>
-  <button id="5" class="Number" value=5>5</button>
-  <button id="6" class="Number" value=6>6</button>
-  <button id="7" class="Number" value=7>7</button>
-  <button id="8" class="Number" value=8>8</button>
-  <button id="9" class="Number" value=9>9</button>
-  <button id="+" class="Operator">+</button>
-  <button id="-" class="Operator">-</button>
-  <button id="*" class="Operator">*</button>
-  <button id="/" class="Operator">/</button>
-  <button id="." class="Number" value=".">.</button>
-  <button id="Submit" class="Function">Submit</button>
-  <button id="ClearCurrent" class="Function">Clear Current</button>
-  <button id="ClearAll" class="Function">Clear All</button>
-  <button id="M+" class="Function">M+</button>
-  <button id="M-" class="Function">M-</button>
-  <button id="MR" class="Function">MR</button>
-  <br>
-  <div id="Total"></div>
-  <br>
-  <div id="Memory"></div>
+  <div class="calculator">
+    <div class="calculator-screen">
+      <div id="Total"></div>
+      <div id="Memory"></div>
+    </div>
+    <div class="calculator-keys">
+      <button type="button" id="+" class="Operator">+</button>
+      <button type="button" id="-" class="Operator">-</button>
+      <button type="button" id="*" class="Operator">x</button>
+      <button type="button" id="/" class="Operator">/</button>
+      <button type="button" id="7" class="Number" value=7>7</button>
+      <button type="button" id="8" class="Number" value=8>8</button>
+      <button type="button" id="9" class="Number" value=9>9</button>
+      <button type="button" id="4" class="Number" value=4>4</button>
+      <button type="button" id="5" class="Number" value=5>5</button>
+      <button type="button" id="6" class="Number" value=6>6</button>
+      <button type="button" id="1" class="Number" value=1>1</button>
+      <button type="button" id="2" class="Number" value=2>2</button>
+      <button type="button" id="3" class="Number" value=3>3</button>
+      <button type="button" id="0" class="Number" value=0>0</button>
+      <button type="button" id="." class="Number" value=".">.</button>
+      <button type="button" id="Submit" class="Function">=</button>
+      <button type="button" id="ClearCurrent" class="Function">Clear Current</button>
+      <button type="button" id="ClearAll" class="Function">Clear All</button>
+      <button type="button" id="MPlus" class="Function">M+</button>
+      <button type="button" id="MMinus" class="Function">M-</button>
+      <button type="button" id="MR" class="Function">MR</button>
+      <button type="button" id="Negative" class="Function">(+/-)</button>
+  </div>
+</div>
 </body>
-<script src="script with objects.js"></script>
+<script src="script.js"></script>
 </html>

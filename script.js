@@ -1,241 +1,130 @@
-let display = document.getElementById('total')
-let categoryPreviousInput, categoryCurrentInput, operatorCurrent, operatorPrevious, numberPrevious, numberCurrent
-setInitalConditions()
-
-function setInitalConditions() {
-  categoryPreviousInput = ''
-  categoryCurrentInput = ''
-  operatorCurrent = ''
-  operatorPrevious = null
-  numberPrevious = []
-  numberCurrent = []
+let Calculator = {
+  numberFirst: null,
+  operatorFirst: null,
+  numberSecond: null,
+  operatorSecond: null,
+  numberMemory: null
 }
 
-const numberButtons = document.getElementsByTagName('button').length
-
-for (let i = 0; i < numberButtons; i++) {
-  if (!(isNaN(Number(document.getElementsByTagName('button')[i].textContent)))) {
-    document.getElementsByTagName('button')[i].addEventListener('click', () =>{
-      categoryCurrentInput = 'Number'
-      clickedIcon(document.getElementsByTagName('button')[i].id)
-    })
-  } else {
-    document.getElementsByTagName('button')[i].addEventListener('click', () => {
-      switch (document.getElementsByTagName('button')[i].textContent) {
-        case "*":
-          categoryCurrentInput = "Operator";
-          operatorCurrent = "Multiply";
-          break;
-        case "/":
-          categoryCurrentInput = "Operator";
-          operatorCurrent = "Divide";
-          break;
-        case "+":
-          categoryCurrentInput = "Operator";
-          operatorCurrent = "Add";
-          break;
-        case "-":
-          categoryCurrentInput = "Operator";
-          operatorCurrent = "Subtract";
-          break;
-        case "Submit":
-          categoryCurrentInput = "Function";
-          operatorCurrent = "Submit"
-          break;
-        case ".":
-          categoryCurrentInput = "Number";
-          break;
-        case "Clear":
-          categoryCurrentInput = "Function";
-          operatorCurrent = "Clear"
-          setInitalConditions();
-          display.textContent = numberCurrent
-        default:
-          break;
-      }
-      clickedIcon(document.getElementsByTagName('button')[i].id)
-    })
+// https://ultimatecourses.com/blog/ditch-the-array-foreach-call-nodelist-hack
+// Dynamic (could be used again if other buttons are added via JavaScript)
+// Compatible with all browsers
+// Doesn't extend existing DOM functionality
+// Doesn't blend arrays and NodeLists
+var forEach = function (array, callback, scope) {
+  for (var i = 0; i < array.length; i++) {
+    callback.call(scope, i, array[i]);
   }
-}
+};
 
+var myNodeList = document.querySelectorAll('button');
+forEach(myNodeList, function (index, value) {
+    // "index" on the above line defines the number of times to loop
+    // "value" on the above line defines what attribute to extract using the (call) function 
+    document.getElementById(value.id).addEventListener('click', Main)
+});
 
+function Main(event) {
+  event.preventDefault()
+  performOperation(this)
+  renderDisplay();
+} 
+renderDisplay()
 
-function clickedIcon(elementID) {
-  console.log(`1 Current = ${numberCurrent}`)
-  console.log(`1 Previous = ${numberPrevious}`)
-  console.log(`1 Operator *C = ${operatorCurrent}`)
-  console.log(`1 Operator *P ${operatorPrevious}`)
-  if (categoryPreviousInput == "" && categoryCurrentInput == "Number") {
-    numberCurrent += (elementID)
-    categoryPreviousInput = "Number"
-    display.textContent += document.getElementById(elementID).textContent
-    console.log("2-N")
-    console.log(`Current = ${numberCurrent}`)
-    console.log(`Previous = ${numberPrevious}`)
-    console.log(`Operator *C = ${operatorCurrent}`)
-    console.log(`Operator *P ${operatorPrevious}`)
-  } else if (categoryPreviousInput == "Number" && categoryCurrentInput == "Number") {
-    numberCurrent += (elementID)
-    display.textContent += document.getElementById(elementID).textContent
-    console.log("2NN")
-    console.log(`Current = ${numberCurrent}`)
-    console.log(`Previous = ${numberPrevious}`)
-    console.log(`Operator *C = ${operatorCurrent}`)
-    console.log(`Operator *P ${operatorPrevious}`)
-  } else if (categoryPreviousInput == "Operator" && categoryCurrentInput == "Number") {
-    categoryPreviousInput = "Number"
-    numberCurrent = elementID
-    display.textContent += document.getElementById(elementID).textContent
-    console.log("2ON")
-    console.log(`Current = ${numberCurrent}`)
-    console.log(`Previous = ${numberPrevious}`)
-    console.log(`Operator *C = ${operatorCurrent}`)
-    console.log(`Operator *P ${operatorPrevious}`)
-  } else if (categoryPreviousInput == "Function" && categoryCurrentInput == "Number") {
-    categoryPreviousInput = "Number"
-    numberCurrent = numberPrevious += elementID
-    numberPrevious = []
-    display.textContent = numberCurrent
-
-    console.log("2FN")
-    console.log(`Current = ${numberCurrent}`)
-    console.log(`Previous = ${numberPrevious}`)
-    console.log(`Operator *C = ${operatorCurrent}`)
-    console.log(`Operator *P ${operatorPrevious}`)
-
-  } else if (categoryPreviousInput == "" && categoryCurrentInput == "Operator") {
-    categoryPreviousInput = "Operator"
-    //ODD Maybe throw error?
-    
-    display.textContent += document.getElementById(elementID).textContent
-    console.log("2-O")
-    console.log(`Current = ${numberCurrent}`)
-    console.log(`Previous = ${numberPrevious}`)
-    console.log(`Operator *C = ${operatorCurrent}`)
-    console.log(`Operator *P ${operatorPrevious}`)
-  } else if (categoryPreviousInput == "Number" && categoryCurrentInput == "Operator") {
-    console.log("2NO")
-    console.log(`1Current = ${numberCurrent}`)
-    console.log(`1Previous = ${numberPrevious}`)
-    console.log(`1Operator *C = ${operatorCurrent}`)
-    console.log(`1Operator *P ${operatorPrevious}`)
-    categoryPreviousInput = "Operator"
-    executeOperations(operatorPrevious)
-    operatorPrevious == null ? operatorPrevious = operatorCurrent : operatorPrevious
-    display.textContent = numberCurrent
-    numberPrevious = numberCurrent
-    numberCurrent = []
-    display.textContent += document.getElementById(elementID).textContent
-    console.log("2NO")
-    console.log(`2Current = ${numberCurrent}`)
-    console.log(`2Previous = ${numberPrevious}`)
-    console.log(`2Operator *C = ${operatorCurrent}`)
-    console.log(`2Operator *P ${operatorPrevious}`)
-  } else if (categoryPreviousInput == "Operator" && categoryCurrentInput == "Operator") {
-    display.textContent = numberPrevious
-    executeOperations(operatorCurrent)
-    display.textContent += document.getElementById(elementID).textContent
-    console.log("2OO")
-    console.log(`Current = ${numberCurrent}`)
-    console.log(`Previous = ${numberPrevious}`)
-    console.log(`Operator *C = ${operatorCurrent}`)
-    console.log(`Operator *P ${operatorPrevious}`)
-  } else if (categoryPreviousInput == "Function" && categoryCurrentInput == "Operator") {
-    categoryPreviousInput = "Operator"    
-    display.textContent = numberPrevious
-    display.textContent += document.getElementById(elementID).textContent
-    operatorPrevious = operatorCurrent
-    console.log("2FO")
-    console.log(`Current = ${numberCurrent}`)
-    console.log(`Previous = ${numberPrevious}`)
-    console.log(`Operator *C = ${operatorCurrent}`)
-    console.log(`Operator *P ${operatorPrevious}`)
-  
-
-  } else if (categoryPreviousInput == "" && categoryCurrentInput == "Function") {
-    categoryPreviousInput = "Function"
-    console.log("2-F")
-    console.log(`Current = ${numberCurrent}`)
-    console.log(`Previous = ${numberPrevious}`)
-    console.log(`Operator *C = ${operatorCurrent}`)
-    console.log(`Operator *P ${operatorPrevious}`)
-    
-
-  } else if (categoryPreviousInput == "Number" && categoryCurrentInput == "Function") {
-    categoryPreviousInput = "Function"
-
-    
-    if (operatorCurrent == "Submit") {
-      console.log(`SUBMIT!! Op Prev: ${operatorPrevious}`)
-      executeOperations(operatorPrevious)
+function performOperation (element) {
+  if (Calculator.numberFirst == null && element.className == "Number") {
+    Calculator.numberFirst = element.value
+  } else if (element.className == "Number") {
+    if (!((Calculator.numberFirst.split(".").length >= 2) == true && element.id == ".")) {
+      Calculator.numberFirst += element.value
     } 
-    // else if (operatorCurrent == "Clear") {
-    //   console.log("CLEAR!!")
-    //   setInitalConditions();
-    // }
-
-    display.textContent = numberCurrent
-    numberPrevious = numberCurrent
-    numberCurrent = []
-    console.log("2NF")
-    console.log(`Current = ${numberCurrent}`)
-    console.log(`Previous = ${numberPrevious}`)
-    console.log(`Operator *C = ${operatorCurrent}`)
-    console.log(`Operator *P ${operatorPrevious}`)
-    
-  } else if (categoryPreviousInput == "Operator" && categoryCurrentInput == "Function") {
-    categoryPreviousInput = "Function"
-    console.log("2OF")
-    console.log(`Current = ${numberCurrent}`)
-    console.log(`Previous = ${numberPrevious}`)
-    console.log(`Operator *C = ${operatorCurrent}`)
-    console.log(`Operator *P ${operatorPrevious}`)
-    
-  } else if (categoryPreviousInput == "Function" && categoryCurrentInput == "Function") {
-    console.log("2FF")
-    console.log(`Current = ${numberCurrent}`)
-    console.log(`Previous = ${numberPrevious}`)
-    console.log(`Operator *C = ${operatorCurrent}`)
-    console.log(`Operator *P ${operatorPrevious}`)
+  } else if (element.className == "Operator") {
+    if (Calculator.numberFirst == null && Calculator.operatorFirst != null && Calculator.numberSecond != null) {
+      Calculator.operatorFirst = element.id
+    } else if (!(Calculator.numberFirst == null && Calculator.numberSecond == null)) {
+        Calculator.operatorSecond = Calculator.operatorFirst
+        if (Calculator.numberFirst != null && Calculator.numberSecond != null && Calculator.operatorSecond != null) {
+          calculateNewNumber(Calculator.operatorSecond);
+        } else {Calculator.numberSecond = Calculator.numberFirst}
+          Calculator.numberFirst = null;
+          Calculator.operatorFirst = element.id
+      }
+  } else if (element.className == "Function") {
+    if (element.id == "Submit") {
+      performSubmit();
+    } else if (element.id == "ClearCurrent") {
+      performClear(false);
+    } else if (element.id == "ClearAll") {
+      performClear(true);
+    } else if (element.id == "MPlus") {
+      performSubmit();
+      Calculator.numberMemory = Calculator.numberFirst
+      performClear(false);
+      document.getElementById("Memory").textContent = `Memory = ${Calculator.numberMemory}`;
+    } else if (element.id == "MMinus"){
+      Calculator.numberMemory = null
+      document.getElementById("Memory").textContent = ""
+    } else if (element.id == "Negative") {
+      Calculator.numberFirst = (Number(Calculator.numberFirst) * -1).toString()
+    } else if (element.id == "MR"){
+      Calculator.numberFirst == null ? Calculator.numberFirst = Calculator.numberMemory : Calculator.numberSecond = Calculator.numberMemory
+      if (Calculator.operatorFirst == null && Calculator.numberFirst != null && Calculator.numberMemory != null) {
+        performClear(false);
+        Calculator.numberFirst = Calculator.numberMemory
+        document.getElementById("Total").textContent = Calculator.numberMemory
+      }
+    }
   }
-
-  
-  console.log(`3 Current = ${numberCurrent}`)
-  console.log(`3 Previous = ${numberPrevious}`)
-  console.log(`3 Operator = ${operatorCurrent}`)
-
-  // display.textContent += document.getElementById(elementID).textContent
 }
 
 function renderDisplay() {
-
+  if (Calculator.numberFirst == null && Calculator.numberSecond == null && Calculator.operatorFirst == null && Calculator.operatorSecond == null) {
+    document.getElementById('Total').textContent = "0"
+  } else {
+    var displayElement1 = Calculator.numberSecond == null ? Calculator.numberFirst : Calculator.numberSecond;
+    var displayElement2 = Calculator.numberSecond == null ? "" : Calculator.operatorFirst;
+    var displayElement3;
+    if (Calculator.numberFirst != null && Calculator.numberSecond == null) {
+      displayElement3 = "";
+    } else { Calculator.numberFirst == null ? displayElement3 = "" : 
+    Calculator.numberFirst >= 0 ? displayElement3 = Calculator.numberFirst : displayElement3 = `(${Calculator.numberFirst})`; 
+  }
+    document.getElementById('Total').textContent = `${displayElement1}${displayElement2}${displayElement3}`;
+  }
 }
 
-function clearDisplay() {
-  display.textContent = ""
-}
-
-function executeOperations (operatorInput) {
-  switch (operatorInput) {
-    case "Multiply":
-      console.log("M")
-      categoryCurrentInput == "Function" ? operatorCurrent = operatorPrevious : operatorPrevious = operatorCurrent 
-      numberCurrent = Number(numberPrevious) * Number(numberCurrent);
+function calculateNewNumber(operator) {
+  switch (operator) {
+    case "+":
+      Calculator.numberSecond = Number(Calculator.numberSecond) + Number(Calculator.numberFirst);
       break;
-    case "Divide":
-      console.log("D")
-      categoryCurrentInput == "Function" ? operatorCurrent = operatorPrevious : operatorPrevious = operatorCurrent
-      numberCurrent =  Number(numberPrevious) / Number(numberCurrent);
+    case "-":
+      Calculator.numberSecond = Number(Calculator.numberSecond) - Number(Calculator.numberFirst);
       break;
-    case "Subtract":
-      console.log("S")
-      categoryCurrentInput == "Function" ? operatorCurrent = operatorPrevious : operatorPrevious = operatorCurrent
-      numberCurrent = Number(numberPrevious) - Number(numberCurrent);
+    case "*":
+      Calculator.numberSecond = Number(Calculator.numberSecond) * Number(Calculator.numberFirst);
       break;
-    case "Add":
-      console.log("A")
-      categoryCurrentInput == "Function" ? operatorCurrent = operatorPrevious : operatorPrevious = operatorCurrent
-      numberCurrent = Number(numberPrevious) + Number(numberCurrent);
+    case "/":
+      Calculator.numberSecond = Number(Calculator.numberSecond) / Number(Calculator.numberFirst);
       break;
   }
+}
+
+function performClear (isClearAll) {
+  if (isClearAll) {
+    Calculator.numberMemory = null;
+    document.getElementById("Memory").textContent = ""
+  } 
+  Calculator.numberFirst = null;
+  Calculator.operatorFirst = null;
+  Calculator.numberSecond = null;
+  Calculator.operatorSecond = null;
+}
+
+function performSubmit () {
+  calculateNewNumber(Calculator.operatorFirst);
+  Calculator.numberSecond == null ? Calculator.numberFirst : Calculator.numberFirst = Calculator.numberSecond
+  Calculator.operatorSecond = null;
+  Calculator.operatorFirst = null;
+  Calculator.numberSecond = null;
 }
