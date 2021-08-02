@@ -9,9 +9,11 @@ A fully functional calculator with memory feature.
 
 - This app manipulates and retrieves data from a JavaScript Object called "Calculator." First the code checks the type of button pressed (Number, Function, or Operator) then manipulates the attributes of the Object accordingly. Finally, the attributes are retrieved, formatted and displayed. 
 
-- The "Memory" feature is activated by pressing "M+", "M-" or "MR". "M+" will perform the displayed calculation if possible before storing the value. The number can be recalled once by pressing "MR" either before an Operator (+, -, x, /) or after. Pressing "M+" while a value is displayed on screen will replace the stored value.
+- The "Memory" feature is activated by pressing "M+", "M-" or "MR". "M+" will perform the displayed calculation if possible before storing the value. The number can be recalled by pressing "MR" either before an Operator (+, -, x, /) or after. Pressing "M+" while a value is displayed on screen will replace the stored value.
 
 - The "(+/-)" toggles the sign of the most recent operand.
+
+- To proactively prevent a common error, the user is restricted from inputting more than one decimal per number.
 
 - The clear feature is split between two buttons: "Clear All" and "Clear Current" - the former will clear all values including the memory while the later maintains the value of the memory.
 
