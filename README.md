@@ -2,9 +2,10 @@
 A fully functional calculator with memory feature.
 
 # Summary
-![image](https://user-images.githubusercontent.com/80381428/127800179-3ce49446-17ad-49c6-80c6-c4bbac454323.png)
 
-[Live Render](https://brendonh18.github.io/Calculator/)
+[See the Live Render](https://brendonh18.github.io/Calculator/)
+
+![image](https://user-images.githubusercontent.com/80381428/127800179-3ce49446-17ad-49c6-80c6-c4bbac454323.png)
 
 - This app manipulates and retrieves data from a JavaScript Object called "Calculator." First the code checks the type of button pressed (Number, Function, or Operator) then manipulates the attributes of the Object accordingly. Finally, the attributes are retrieved, formatted and displayed. 
 
