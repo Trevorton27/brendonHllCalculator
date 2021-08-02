@@ -5,6 +5,7 @@ html
   font-size: 62.5%;
   font-family: 'Quicksand', sans-serif;
   box-sizing: border-box;
+  background-color: lightcyan;
 }
 
 *, *::before, *::after
@@ -16,6 +17,7 @@ html
 
 .calculator
 {
+  background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
   position: absolute;
