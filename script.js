@@ -60,7 +60,7 @@ function performOperation (element) {
       performSubmit();
       Calculator.numberMemory = Calculator.numberFirst
       performClear(false);
-      document.getElementById("Memory").textContent = `Memory = ${Calculator.numberMemory}`;
+      document.getElementById("Memory").textContent = `${Calculator.numberMemory} = Memory`;
     } else if (element.id == "MMinus"){
       Calculator.numberMemory = null
       document.getElementById("Memory").textContent = ""
